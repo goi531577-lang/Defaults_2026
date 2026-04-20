@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дефолты по облигациям — 2026</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: rgba(255,255,255,0.88);
+      --card-strong: #ffffff;
+      --text: #172033;
+      --muted: #65708a;
+      --line: #dfe5f2;
+      --accent: #2d5bff;
+      --accent-soft: rgba(45, 91, 255, 0.12);
+      --danger: #d94141;
+      --danger-soft: rgba(217, 65, 65, 0.12);
+      --warning: #b26b00;
+      --warning-soft: rgba(178, 107, 0, 0.12);
+      --success: #0d8d6a;
+      --shadow: 0 18px 40px rgba(19, 35, 76, 0.08);
+      --radius-xl: 26px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(45, 91, 255, 0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(13, 141, 106, 0.10), transparent 24%),
+        linear-gradient(180deg, #eef3ff 0%, #f5f7fb 35%, #f7f9fc 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .hero {
+      position: relative;
+      padding: 30px;
+      background: linear-gradient(135deg, rgba(26, 41, 84, 0.92), rgba(45, 91, 255, 0.88));
+      color: #fff;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -40px;
+      width: 230px;
+      height: 230px;
+      background: rgba(255,255,255,0.09);
+      border-radius: 50%;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      right: 110px;
+      bottom: -70px;
+      width: 180px;
+      height: 180px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+    }
+
+    .hero-top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 5vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      color: rgba(255,255,255,0.84);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border-radius: 999px;
+      font-size: 13px;
+      backdrop-filter: blur(8px);
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      padding: 18px;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .stat-value {
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin: 8px 0;
+    }
+
+    .stat-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .sticky {
+      position: sticky;
+      top: 20px;
+    }
+
+    .section {
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .section h2 {
+      margin: 0 0 6px;
+      font-size: 21px;
+      letter-spacing: -0.02em;
+    }
+
+    .section p.section-subtitle {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 13px 14px;
+      font: inherit;
+      transition: 0.2s ease;
+      outline: none;
+    }
+
+    textarea { min-height: 96px; resize: vertical; }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(45, 91, 255, 0.45);
+      box-shadow: 0 0 0 4px rgba(45, 91, 255, 0.10);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    button, .file-label {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:hover, .file-label:hover { transform: translateY(-1px); }
+    button:active, .file-label:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2d5bff, #4c78ff);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(45, 91, 255, 0.28);
+    }
+
+    .btn-secondary {
+      background: #eef3ff;
+      color: #2141a7;
+    }
+
+    .btn-soft-danger {
+      background: #fff0f0;
+      color: #b33737;
+    }
+
+    .btn-plain {
+      background: #f4f6fb;
+      color: var(--text);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .hidden-input { display: none; }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1.2fr 0.7fr 0.7fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .split-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .split-item {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #f8faff;
+      border: 1px solid #e6ebf7;
+    }
+
+    .split-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .split-name {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .split-value {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #eaf0fb;
+      overflow: hidden;
+    }
+
+    .progress > div {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2d5bff, #72a0ff);
+    }
+
+    .progress.warning > div {
+      background: linear-gradient(90deg, #ffb648, #ffde86);
+    }
+
+    .list-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-end;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .results-note {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .issuer-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .issuer-card {
+      padding: 20px;
+      border: 1px solid #e8edf8;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,255,1));
+      box-shadow: 0 10px 28px rgba(18, 34, 80, 0.05);
+    }
+
+    .issuer-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .issuer-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .issuer-sub {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .amount-pill {
+      white-space: nowrap;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: #eef3ff;
+      color: #1e3f9f;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .badge {
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge.real {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .badge.tech {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    .issue-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+    }
+
+    .issue-table th,
+    .issue-table td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid #edf1f8;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    .issue-table th {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .issue-name {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .issue-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .issue-actions button {
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .chip.real {
+      background: #fff1f1;
+      color: var(--danger);
+    }
+
+    .chip.tech {
+      background: #fff6e8;
+      color: var(--warning);
+    }
+
+    .empty {
+      padding: 42px 24px;
+      border: 1.5px dashed #d8dfef;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #fafcff, #f7f9fd);
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: 12px;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(14, 20, 36, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 50;
+    }
+
+    .modal {
+      width: min(460px, 100%);
+      background: #fff;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 24px 60px rgba(5, 15, 40, 0.18);
+    }
+
+    .modal h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+
+    .modal p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .right { text-align: right; }
+
+    @media (max-width: 1180px) {
+      .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid { grid-template-columns: 1fr; }
+      .sticky { position: static; }
+    }
+
+    @media (max-width: 840px) {
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .search-row, .field-grid { grid-template-columns: 1fr; }
+      .issue-table,
+      .issue-table thead,
+      .issue-table tbody,
+      .issue-table tr,
+      .issue-table td,
+      .issue-table th {
+        display: block;
+      }
+      .issue-table thead { display: none; }
+      .issue-table tr {
+        border: 1px solid #edf1f8;
+        border-radius: 16px;
+        padding: 8px;
+        margin-bottom: 10px;
+        background: #fff;
+      }
+      .issue-table td {
+        border: none;
+        padding: 8px;
+      }
+      .issue-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 20px, 1240px); }
+      .hero, .section { padding: 18px; }
+      .stats { grid-template-columns: 1fr; }
+      .button-row, .toolbar { flex-direction: column; }
+      button, .file-label { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <h1>Дефолты по облигациям — 2026</h1>
+          <p>
+            Одностраничный сайт для ручного учета дефолтов по выпускам облигаций.
+            Подходит для GitHub Pages, работает без сервера, сохраняет данные в браузере,
+            позволяет отдельно учитывать технический и реальный дефолт, увеличивать сумму задолженности и добавлять новые выпуски к уже существующему эмитенту.
+          </p>
+        </div>
+      </div>
+      <div class="hero-badges">
+        <span class="hero-badge">Ручной ввод</span>
+        <span class="hero-badge">GitHub Pages</span>
+        <span class="hero-badge">Разделение: технический / реальный</span>
+        <span class="hero-badge">Экспорт и импорт JSON</span>
+      </div>
+    </section>
+
+    <section class="stats" id="stats"></section>
+
+    <div class="grid">
+      <div class="sticky">
+        <section class="panel section">
+          <h2 id="formTitle">Добавить дефолт</h2>
+          <p class="section-subtitle">Запись можно создать с нуля или отредактировать уже существующую. Один эмитент может иметь несколько выпусков.</p>
+
+          <form id="entryForm">
+            <input type="hidden" id="entryId" />
+            <div class="field">
+              <label for="issuer">Эмитент</label>
+              <input id="issuer" required placeholder="Например: АО «Пример»" />
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="issue">Выпуск облигаций</label>
+                <input id="issue" required placeholder="Например: 001Р-03" />
+              </div>
+
+              <div class="field">
+                <label for="defaultType">Тип дефолта</label>
+                <select id="defaultType" required>
+                  <option value="technical">Технический дефолт</option>
+                  <option value="real">Реальный дефолт</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="amount">Объем задолженности, ₽</label>
+                <input id="amount" type="number" min="0" step="0.01" required placeholder="0" />
+              </div>
+
+              <div class="field">
+                <label for="defaultDate">Дата</label>
+                <input id="defaultDate" type="date" />
+              </div>
+            </div>
+
+            <div class="field full">
+              <label for="comment">Комментарий</label>
+              <textarea id="comment" placeholder="Например: неисполнение по купону, непогашение номинала, продление льготного периода и т.п."></textarea>
+            </div>
+
+            <div class="button-row">
+              <button class="btn-primary" type="submit" id="submitButton">Сохранить запись</button>
+              <button class="btn-secondary" type="button" id="resetButton">Очистить форму</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel section">
+          <h2>Инструменты</h2>
+          <p class="section-subtitle">Данные хранятся локально в браузере. Для переноса на другой компьютер можно выгрузить JSON и затем импортировать его.</p>
+
+          <div class="toolbar">
+            <button class="btn-secondary" type="button" id="exportButton">Экспорт JSON</button>
+            <label class="file-label btn-plain" for="importInput">Импорт JSON</label>
+            <input class="hidden-input" id="importInput" type="file" accept="application/json" />
+            <button class="btn-soft-danger" type="button" id="clearButton">Очистить все данные</button>
+          </div>
+
+          <div class="split-card" id="splitCard"></div>
+
+          <div class="footer-note">
+            Для публикации на GitHub Pages достаточно загрузить этот HTML-файл как <strong>index.html</strong> в репозиторий и включить Pages в настройках репозитория.
+          </div>
+        </section>
+      </div>
+
+      <section class="panel section">
+        <div class="list-head">
+          <div>
+            <h2>Список эмитентов и выпусков</h2>
+            <p class="section-subtitle">По каждому выпуску можно увеличить задолженность, изменить тип дефолта, отредактировать запись или удалить ее.</p>
+          </div>
+          <div class="results-note" id="resultsNote"></div>
+        </div>
+
+        <div class="search-row">
+          <input id="searchInput" placeholder="Поиск по эмитенту, выпуску или комментарию" />
+          <select id="typeFilter">
+            <option value="all">Все типы дефолта</option>
+            <option value="technical">Только технический</option>
+            <option value="real">Только реальный</option>
+          </select>
+          <select id="sortBy">
+            <option value="amountDesc">Сначала крупнейшая задолженность</option>
+            <option value="amountAsc">Сначала меньшая задолженность</option>
+            <option value="issuerAsc">По эмитенту (А–Я)</option>
+            <option value="issuerDesc">По эмитенту (Я–А)</option>
+          </select>
+        </div>
+
+        <div id="issuerList" class="issuer-list"></div>
+      </section>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="increaseModalBackdrop">
+    <div class="modal">
+      <h3>Увеличить задолженность</h3>
+      <p id="increaseModalText">Добавьте сумму, на которую нужно увеличить задолженность по выбранному выпуску.</p>
+      <div class="field">
+        <label for="increaseAmount">Дополнительная сумма, ₽</label>
+        <input id="increaseAmount" type="number" min="0" step="0.01" placeholder="0" />
+      </div>
+      <div class="button-row">
+        <button class="btn-primary" type="button" id="confirmIncreaseButton">Увеличить</button>
+        <button class="btn-plain" type="button" id="cancelIncreaseButton">Отмена</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'bond-defaults-2026';
+
+    const state = {
+      entries: loadEntries(),
+      editingId: null,
+      increasingId: null,
+    };
+
+    const form = document.getElementById('entryForm');
+    const entryId = document.getElementById('entryId');
+    const issuerInput = document.getElementById('issuer');
+    const issueInput = document.getElementById('issue');
+    const defaultTypeInput = document.getElementById('defaultType');
+    const amountInput = document.getElementById('amount');
+    const defaultDateInput = document.getElementById('defaultDate');
+    const commentInput = document.getElementById('comment');
+    const formTitle = document.getElementById('formTitle');
+    const submitButton = document.getElementById('submitButton');
+
+    const statsContainer = document.getElementById('stats');
+    const issuerList = document.getElementById('issuerList');
+    const resultsNote = document.getElementById('resultsNote');
+    const splitCard = document.getElementById('splitCard');
+
+    const searchInput = document.getElementById('searchInput');
+    const typeFilter = document.getElementById('typeFilter');
+    const sortBy = document.getElementById('sortBy');
+
+    const importInput = document.getElementById('importInput');
+    const exportButton = document.getElementById('exportButton');
+    const clearButton = document.getElementById('clearButton');
+    const resetButton = document.getElementById('resetButton');
+
+    const increaseModalBackdrop = document.getElementById('increaseModalBackdrop');
+    const increaseModalText = document.getElementById('increaseModalText');
+    const increaseAmountInput = document.getElementById('increaseAmount');
+    const confirmIncreaseButton = document.getElementById('confirmIncreaseButton');
+    const cancelIncreaseButton = document.getElementById('cancelIncreaseButton');
+
+    function loadEntries() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        console.error('Ошибка чтения localStorage:', error);
+        return [];
+      }
+    }
+
+    function saveEntries() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.entries));
+    }
+
+    function createId() {
+      return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function normalizeString(value) {
+      return (value || '').toString().trim();
+    }
+
+    function formatMoney(value) {
+      const number = Number(value || 0);
+      return new Intl.NumberFormat('ru-RU', {
+        style: 'currency',
+        currency: 'RUB',
+        maximumFractionDigits: 2,
+      }).format(number);
+    }
+
+    function typeLabel(type) {
+      return type === 'real' ? 'Реальный дефолт' : 'Технический дефолт';
+    }
+
+    function resetForm() {
+      state.editingId = null;
+      entryId.value = '';
+      form.reset();
+      defaultTypeInput.value = 'technical';
+      formTitle.textContent = 'Добавить дефолт';
+      submitButton.textContent = 'Сохранить запись';
+    }
+
+    function fillForm(entry) {
+      state.editingId = entry.id;
+      entryId.value = entry.id;
+      issuerInput.value = entry.issuer;
+      issueInput.value = entry.issue;
+      defaultTypeInput.value = entry.defaultType;
+      amountInput.value = entry.amount;
+      defaultDateInput.value = entry.defaultDate || '';
+      commentInput.value = entry.comment || '';
+      formTitle.textContent = 'Редактировать запись';
+      submitButton.textContent = 'Сохранить изменения';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function getFilteredEntries() {
+      const query = searchInput.value.trim().toLowerCase();
+      const type = typeFilter.value;
+
+      return state.entries.filter(entry => {
+        const matchesType = type === 'all' ? true : entry.defaultType === type;
+        if (!matchesType) return false;
+        if (!query) return true;
+        const haystack = `${entry.issuer} ${entry.issue} ${entry.comment || ''}`.toLowerCase();
+        return haystack.includes(query);
+      });
+    }
+
+    function groupByIssuer(entries) {
+      const map = new Map();
+      for (const entry of entries) {
+        if (!map.has(entry.issuer)) {
+          map.set(entry.issuer, {
+            issuer: entry.issuer,
+            entries: [],
+            totalAmount: 0,
+            techCount: 0,
+            realCount: 0,
+          });
+        }
+        const group = map.get(entry.issuer);
+        group.entries.push(entry);
+        group.totalAmount += Number(entry.amount || 0);
+        if (entry.defaultType === 'real') group.realCount += 1;
+        else group.techCount += 1;
+      }
+
+      const groups = Array.from(map.values());
+      const sorter = sortBy.value;
+
+      groups.forEach(group => {
+        group.entries.sort((a, b) => Number(b.amount) - Number(a.amount));
+      });
+
+      groups.sort((a, b) => {
+        if (sorter === 'amountAsc') return a.totalAmount - b.totalAmount;
+        if (sorter === 'issuerAsc') return a.issuer.localeCompare(b.issuer, 'ru');
+        if (sorter === 'issuerDesc') return b.issuer.localeCompare(a.issuer, 'ru');
+        return b.totalAmount - a.totalAmount;
+      });
+
+      return groups;
+    }
+
+    function renderStats(entries) {
+      const issuers = new Set(entries.map(entry => entry.issuer)).size;
+      const issues = entries.length;
+      const techTotal = entries
+        .filter(entry => entry.defaultType === 'technical')
+        .reduce((sum, entry) => sum + Number(entry.amount || 0), 0);
+      const realTotal = entries
+        .filter(entry => entry.defaultType === 'real')
+        .reduce((sum, entry) => sum + Number(entry.amount || 0), 0);
+      const total = techTotal + realTotal;
+
+      const cards = [
+        {
+          label: 'Эмитенты с дефолтом',
+          value: issuers.toLocaleString('ru-RU'),
+          meta: 'Количество уникальных эмитентов',
+        },
+        {
+          label: 'Выпуски в дефолте',
+          value: issues.toLocaleString('ru-RU'),
+          meta: 'Количество записей по выпускам',
+        },
+        {
+          label: 'Технический дефолт',
+          value: formatMoney(techTotal),
+          meta: 'Совокупный объем задолженности',
+        },
+        {
+          label: 'Реальный дефолт',
+          value: formatMoney(realTotal),
+          meta: 'Совокупный объем задолженности',
+        },
+        {
+          label: 'Всего задолженности',
+          value: formatMoney(total),
+          meta: 'Технический + реальный дефолт',
+        },
+      ];
+
+      statsContainer.innerHTML = cards.map(card => `
+        <article class="panel stat-card">
+          <div class="stat-label">${card.label}</div>
+          <div class="stat-value">${card.value}</div>
+          <div class="stat-meta">${card.meta}</div>
+        </article>
+      `).join('');
+
+      const totalForShare = total || 1;
+      const techShare = Math.round((techTotal / totalForShare) * 100);
+      const realShare = Math.round((realTotal / totalForShare) * 100);
+
+      splitCard.innerHTML = `
+        <div class="split-item">
+          <div class="split-top">
+            <div class="split-name">Технический дефолт</div>
+            <div class="split-value">${formatMoney(techTotal)}</div>
+          </div>
+          <div class="progress warning"><div style="width:${techShare}%"></div></div>
+          <div class="footer-note">Доля в общем объеме задолженности: ${techShare}%</div>
+        </div>
+        <div class="split-item">
+          <div class="split-top">
+            <div class="split-name">Реальный дефолт</div>
+            <div class="split-value">${formatMoney(realTotal)}</div>
+          </div>
+          <div class="progress"><div style="width:${realShare}%"></div></div>
+          <div class="footer-note">Доля в общем объеме задолженности: ${realShare}%</div>
+        </div>
+      `;
+    }
+
+    function renderIssuerList(entries) {
+      const groups = groupByIssuer(entries);
+      resultsNote.textContent = `Показано эмитентов: ${groups.length}. Записей по выпускам: ${entries.length}.`;
+
+      if (!groups.length) {
+        issuerList.innerHTML = `
+          <div class="empty">
+            <div style="font-size:20px;font-weight:800;margin-bottom:8px;">Пока нет данных</div>
+            <div>Добавьте первую запись о дефолте через форму слева.</div>
+          </div>
+        `;
+        return;
+      }
+
+      issuerList.innerHTML = groups.map(group => `
+        <article class="issuer-card">
+          <div class="issuer-head">
+            <div>
+              <div class="issuer-title">${escapeHtml(group.issuer)}</div>
+              <div class="issuer-sub">Выпусков в дефолте: ${group.entries.length}</div>
+              <div class="badges">
+                ${group.techCount ? `<span class="badge tech">Технический: ${group.techCount}</span>` : ''}
+                ${group.realCount ? `<span class="badge real">Реальный: ${group.realCount}</span>` : ''}
+              </div>
+            </div>
+            <div class="amount-pill">${formatMoney(group.totalAmount)}</div>
+          </div>
+
+          <table class="issue-table">
+            <thead>
+              <tr>
+                <th>Выпуск</th>
+                <th>Тип</th>
+                <th>Задолженность</th>
+                <th>Дата</th>
+                <th>Комментарий</th>
+                <th class="right">Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${group.entries.map(entry => `
+                <tr>
+                  <td data-label="Выпуск"><div class="issue-name">${escapeHtml(entry.issue)}</div></td>
+                  <td data-label="Тип">
+                    <span class="chip ${entry.defaultType === 'real' ? 'real' : 'tech'}">${typeLabel(entry.defaultType)}</span>
+                  </td>
+                  <td data-label="Задолженность">${formatMoney(entry.amount)}</td>
+                  <td data-label="Дата">${entry.defaultDate ? formatDate(entry.defaultDate) : '<span class="muted">—</span>'}</td>
+                  <td data-label="Комментарий">${entry.comment ? escapeHtml(entry.comment) : '<span class="muted">—</span>'}</td>
+                  <td data-label="Действия">
+                    <div class="issue-actions">
+                      <button class="btn-secondary" type="button" onclick="startIncrease('${entry.id}')">+ Задолженность</button>
+                      <button class="btn-plain" type="button" onclick="editEntry('${entry.id}')">Редактировать</button>
+                      <button class="btn-soft-danger" type="button" onclick="removeEntry('${entry.id}')">Удалить</button>
+                    </div>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </article>
+      `).join('');
+    }
+
+    function render() {
+      const filteredEntries = getFilteredEntries();
+      renderStats(state.entries);
+      renderIssuerList(filteredEntries);
+      saveEntries();
+    }
+
+    function formatDate(dateString) {
+      try {
+        const [year, month, day] = dateString.split('-');
+        return `${day}.${month}.${year}`;
+      } catch {
+        return dateString;
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function getEntryById(id) {
+      return state.entries.find(entry => entry.id === id);
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const issuer = normalizeString(issuerInput.value);
+      const issue = normalizeString(issueInput.value);
+      const amount = Number(amountInput.value);
+      const defaultType = defaultTypeInput.value;
+      const defaultDate = defaultDateInput.value;
+      const comment = normalizeString(commentInput.value);
+
+      if (!issuer || !issue || Number.isNaN(amount)) {
+        alert('Заполните обязательные поля: эмитент, выпуск и объем задолженности.');
+        return;
+      }
+
+      if (amount < 0) {
+        alert('Объем задолженности не может быть отрицательным.');
+        return;
+      }
+
+      if (state.editingId) {
+        state.entries = state.entries.map(entry => entry.id === state.editingId
+          ? { ...entry, issuer, issue, amount, defaultType, defaultDate, comment }
+          : entry
+        );
+      } else {
+        state.entries.unshift({
+          id: createId(),
+          issuer,
+          issue,
+          amount,
+          defaultType,
+          defaultDate,
+          comment,
+          createdAt: new Date().toISOString(),
+        });
+      }
+
+      resetForm();
+      render();
+    });
+
+    resetButton.addEventListener('click', resetForm);
+
+    searchInput.addEventListener('input', render);
+    typeFilter.addEventListener('change', render);
+    sortBy.addEventListener('change', render);
+
+    exportButton.addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(state.entries, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'bond-defaults-2026.json';
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+
+    importInput.addEventListener('change', async (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const parsed = JSON.parse(text);
+        if (!Array.isArray(parsed)) throw new Error('Некорректный формат JSON');
+        state.entries = parsed.map(item => ({
+          id: item.id || createId(),
+          issuer: normalizeString(item.issuer),
+          issue: normalizeString(item.issue),
+          amount: Number(item.amount || 0),
+          defaultType: item.defaultType === 'real' ? 'real' : 'technical',
+          defaultDate: item.defaultDate || '',
+          comment: normalizeString(item.comment || ''),
+          createdAt: item.createdAt || new Date().toISOString(),
+        }));
+        render();
+        alert('Данные успешно импортированы.');
+      } catch (error) {
+        console.error(error);
+        alert('Не удалось импортировать файл. Проверьте формат JSON.');
+      } finally {
+        event.target.value = '';
+      }
+    });
+
+    clearButton.addEventListener('click', () => {
+      const confirmed = confirm('Удалить все записи? Это действие нельзя отменить.');
+      if (!confirmed) return;
+      state.entries = [];
+      resetForm();
+      render();
+    });
+
+    function startIncrease(id) {
+      const entry = getEntryById(id);
+      if (!entry) return;
+      state.increasingId = id;
+      increaseAmountInput.value = '';
+      increaseModalText.textContent = `Добавьте сумму, на которую нужно увеличить задолженность по выпуску ${entry.issue} эмитента ${entry.issuer}.`; 
+      increaseModalBackdrop.style.display = 'flex';
+      setTimeout(() => increaseAmountInput.focus(), 30);
+    }
+
+    function closeIncreaseModal() {
+      state.increasingId = null;
+      increaseAmountInput.value = '';
+      increaseModalBackdrop.style.display = 'none';
+    }
+
+    confirmIncreaseButton.addEventListener('click', () => {
+      const value = Number(increaseAmountInput.value);
+      if (Number.isNaN(value) || value <= 0) {
+        alert('Введите положительную сумму для увеличения задолженности.');
+        return;
+      }
+      state.entries = state.entries.map(entry => entry.id === state.increasingId
+        ? { ...entry, amount: Number(entry.amount) + value }
+        : entry
+      );
+      closeIncreaseModal();
+      render();
+    });
+
+    cancelIncreaseButton.addEventListener('click', closeIncreaseModal);
+    increaseModalBackdrop.addEventListener('click', (event) => {
+      if (event.target === increaseModalBackdrop) closeIncreaseModal();
+    });
+
+    function editEntry(id) {
+      const entry = getEntryById(id);
+      if (!entry) return;
+      fillForm(entry);
+    }
+
+    function removeEntry(id) {
+      const entry = getEntryById(id);
+      if (!entry) return;
+      const confirmed = confirm(`Удалить запись по выпуску ${entry.issue} эмитента ${entry.issuer}?`);
+      if (!confirmed) return;
+      state.entries = state.entries.filter(item => item.id !== id);
+      if (state.editingId === id) resetForm();
+      render();
+    }
+
+    window.editEntry = editEntry;
+    window.removeEntry = removeEntry;
+    window.startIncrease = startIncrease;
+
+    render();
+  </script>
+</body>
+</html>
