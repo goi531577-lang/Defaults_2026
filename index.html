@@ -27,11 +27,6 @@
 
     * { box-sizing: border-box; }
 
-    html {
-      -webkit-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-    }
-
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -136,14 +131,14 @@
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
       gap: 16px;
       margin-bottom: 20px;
     }
 
     .stat-card {
-      padding: 18px;
-      min-height: 130px;
+      padding: 24px;
+      min-height: 180px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -156,11 +151,12 @@
     }
 
     .stat-value {
-      font-size: clamp(22px, 3vw, 34px);
+      font-size: clamp(20px, 2.2vw, 30px);
       font-weight: 800;
       line-height: 1;
-      letter-spacing: -0.03em;
-      margin: 8px 0;
+      letter-spacing: -0.04em;
+      margin: 10px 0;
+      white-space: nowrap;
     }
 
     .stat-meta {
@@ -229,20 +225,6 @@
       font: inherit;
       transition: 0.2s ease;
       outline: none;
-      min-width: 0;
-    }
-
-    select {
-      padding-right: 52px;
-      font-size: 15px;
-      line-height: 1.3;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%231f2a44' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-      background-size: 18px 18px;
     }
 
     textarea { min-height: 96px; resize: vertical; }
@@ -562,15 +544,14 @@
     .right { text-align: right; }
 
     @media (max-width: 1180px) {
-      .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .stats { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); }
       .grid { grid-template-columns: 1fr; }
       .sticky { position: static; }
     }
 
     @media (max-width: 840px) {
-      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stats { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
       .search-row, .field-grid { grid-template-columns: 1fr; }
-      select { font-size: 15px; }
       .issue-table,
       .issue-table thead,
       .issue-table tbody,
@@ -618,6 +599,11 @@
       <div class="hero-top">
         <div>
           <h1>Дефолты по облигациям — 2026</h1>
+          <p>
+            Одностраничный сайт для ручного учета дефолтов по выпускам облигаций.
+            Подходит для GitHub Pages, работает без сервера, сохраняет данные в браузере,
+            позволяет отдельно учитывать технический и реальный дефолт, увеличивать сумму задолженности и добавлять новые выпуски к уже существующему эмитенту.
+          </p>
         </div>
       </div>
       <div class="hero-badges">
@@ -652,8 +638,8 @@
               <div class="field">
                 <label for="defaultType">Тип дефолта</label>
                 <select id="defaultType" required>
-                  <option value="technical">Технический</option>
-                  <option value="real">Реальный</option>
+                  <option value="technical">Технический дефолт</option>
+                  <option value="real">Реальный дефолт</option>
                 </select>
               </div>
             </div>
@@ -695,9 +681,6 @@
 
           <div class="split-card" id="splitCard"></div>
 
-          <div class="footer-note">
-            Для публикации на GitHub Pages достаточно загрузить этот HTML-файл как <strong>index.html</strong> в репозиторий и включить Pages в настройках репозитория.
-          </div>
         </section>
       </div>
 
@@ -705,7 +688,7 @@
         <div class="list-head">
           <div>
             <h2>Список эмитентов и выпусков</h2>
-            
+            <p class="section-subtitle">По каждому выпуску можно увеличить задолженность, изменить тип дефолта, отредактировать запись или удалить ее.</p>
           </div>
           <div class="results-note" id="resultsNote"></div>
         </div>
@@ -925,6 +908,11 @@
           label: 'Реальный дефолт',
           value: formatMoney(realTotal),
           meta: 'Совокупный объем задолженности',
+        },
+        {
+          label: 'Всего задолженности',
+          value: formatMoney(total),
+          meta: 'Технический + реальный дефолт',
         },
       ];
 
