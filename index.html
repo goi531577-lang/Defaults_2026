@@ -131,14 +131,14 @@
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 16px;
       margin-bottom: 20px;
     }
 
     .stat-card {
-      padding: 24px;
-      min-height: 180px;
+      padding: 18px;
+      min-height: 130px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -151,12 +151,11 @@
     }
 
     .stat-value {
-      font-size: clamp(20px, 2.2vw, 30px);
+      font-size: clamp(22px, 3vw, 34px);
       font-weight: 800;
       line-height: 1;
-      letter-spacing: -0.04em;
-      margin: 10px 0;
-      white-space: nowrap;
+      letter-spacing: -0.03em;
+      margin: 8px 0;
     }
 
     .stat-meta {
@@ -544,13 +543,13 @@
     .right { text-align: right; }
 
     @media (max-width: 1180px) {
-      .stats { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); }
+      .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .grid { grid-template-columns: 1fr; }
       .sticky { position: static; }
     }
 
     @media (max-width: 840px) {
-      .stats { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .search-row, .field-grid { grid-template-columns: 1fr; }
       .issue-table,
       .issue-table thead,
@@ -599,11 +598,6 @@
       <div class="hero-top">
         <div>
           <h1>Дефолты по облигациям — 2026</h1>
-          <p>
-            Одностраничный сайт для ручного учета дефолтов по выпускам облигаций.
-            Подходит для GitHub Pages, работает без сервера, сохраняет данные в браузере,
-            позволяет отдельно учитывать технический и реальный дефолт, увеличивать сумму задолженности и добавлять новые выпуски к уже существующему эмитенту.
-          </p>
         </div>
       </div>
       <div class="hero-badges">
@@ -681,6 +675,9 @@
 
           <div class="split-card" id="splitCard"></div>
 
+          <div class="footer-note">
+            Для публикации на GitHub Pages достаточно загрузить этот HTML-файл как <strong>index.html</strong> в репозиторий и включить Pages в настройках репозитория.
+          </div>
         </section>
       </div>
 
@@ -688,7 +685,7 @@
         <div class="list-head">
           <div>
             <h2>Список эмитентов и выпусков</h2>
-            <p class="section-subtitle">По каждому выпуску можно увеличить задолженность, изменить тип дефолта, отредактировать запись или удалить ее.</p>
+            
           </div>
           <div class="results-note" id="resultsNote"></div>
         </div>
@@ -909,11 +906,7 @@
           value: formatMoney(realTotal),
           meta: 'Совокупный объем задолженности',
         },
-        {
-          label: 'Всего задолженности',
-          value: formatMoney(total),
-          meta: 'Технический + реальный дефолт',
-        },
+
       ];
 
       statsContainer.innerHTML = cards.map(card => `
